@@ -23,7 +23,10 @@ public class MessageService {
     }
 
     public void deleteMessagesByMagicNumber(int magicNumber){
-        messageRepository.deleteAllByMagicNumber(magicNumber);
+        List<Message> messageList = messageRepository.findAllByMagicNumber(magicNumber);
+        for (Message m: messageList) {
+            messageRepository.delete(m);
+        }
     }
 
     public MessageDto saveMessage(MessageDto messageDto){

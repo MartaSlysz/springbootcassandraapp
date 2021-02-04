@@ -9,6 +9,6 @@ public interface MessageRepository extends CassandraRepository<Message, String> 
 
     @AllowFiltering
     List<Message> findAllByMagicNumber(int number);
-    void deleteAllByMagicNumber(int number);
+    @AllowFiltering
     List<Message> findAllByEmail(String email);
 }

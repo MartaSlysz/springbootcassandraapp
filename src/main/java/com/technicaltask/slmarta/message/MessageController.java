@@ -20,7 +20,7 @@ public class MessageController {
     private final MessageService messageService;
 
     @ApiOperation(value= "Get an object containing a list of messages connected with an email given")
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value="messages/{email}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Message> getAllMessagesByEmail(@ApiParam(name = "email", required = true) @PathVariable String email){
@@ -35,13 +35,14 @@ public class MessageController {
         return messageService.saveMessage(messageDto);
     }
 
-    @ApiOperation(value = "Get an object containing a list of messages with a number given and then delete these messages.")
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get an object containing a list of messages with a number given.")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value = "/send")
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public void getAllMessagesByMagicNumberAndThenDeleteThem(@ApiParam(name = "magic number", required = true) @RequestBody int magicNumber){
-        messageService.getMessagesByMagicNumber(magicNumber);
-        messageService.deleteMessagesByMagicNumber(magicNumber);
+    public List<Message> getAllMessagesByMagicNumber(@ApiParam(name = "magic number", required = true) @RequestBody MagicNumber magicNumber){
+       List<Message> messagesToDisplay = messageService.getMessagesByMagicNumber(magicNumber.getMagicNumber());
+       messageService.deleteMessagesByMagicNumber(magicNumber.getMagicNumber());
+       return messagesToDisplay;
     }
 
 
