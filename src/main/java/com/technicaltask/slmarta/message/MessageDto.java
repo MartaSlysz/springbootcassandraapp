@@ -13,5 +13,5 @@ public class MessageDto {
     private String email;
     private String title;
     private String content;
-    private Integer magicNumber;
+    private int magicNumber;
 }

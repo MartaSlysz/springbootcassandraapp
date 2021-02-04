@@ -7,6 +7,6 @@ import org.mapstruct.factory.Mappers;
 public interface MessageMapper {
     MessageMapper INSTANCE = Mappers.getMapper(MessageMapper.class);
 
-    MessageDto mapMessageToDto(Message message);
     Message mapDtoToMessage(MessageDto messageDto);
+    MessageDto mapMessageToDto(Message message);
 }

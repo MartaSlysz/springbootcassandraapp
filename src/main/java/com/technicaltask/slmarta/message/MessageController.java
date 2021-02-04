@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(value = "Messages")
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -33,5 +34,15 @@ public class MessageController {
     public MessageDto sendMessage(@ApiParam(name = "message", required = true) @RequestBody MessageDto messageDto){
         return messageService.saveMessage(messageDto);
     }
+
+    @ApiOperation(value = "Get an object containing a list of messages with a number given and then delete these messages.")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public void getAllMessagesByMagicNumberAndThenDeleteThem(@ApiParam(name = "magic number", required = true) @RequestBody int magicNumber){
+        messageService.getMessagesByMagicNumber(magicNumber);
+        messageService.deleteMessagesByMagicNumber(magicNumber);
+    }
+
 
 }

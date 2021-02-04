@@ -6,12 +6,10 @@ import lombok.*;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.util.UUID;
-
 @ApiModel(description = "Message params")
 @Getter
 @Setter
-@Table
+@Table("messages")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +17,7 @@ public class Message {
 
     @ApiModelProperty(name = "Message ID")
     @PrimaryKey
-    private Long id;
+    private String id;
 
     @ApiModelProperty(name = "email")
     private String email;
@@ -31,6 +29,6 @@ public class Message {
     private String content;
 
     @ApiModelProperty(name = "magic number")
-    private Integer magicNumber;
+    private int magicNumber;
 
 }

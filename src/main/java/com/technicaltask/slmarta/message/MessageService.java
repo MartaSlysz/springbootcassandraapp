@@ -18,10 +18,19 @@ public class MessageService {
         return messageRepository.findAllByEmail(email);
     }
 
+    public List<Message> getMessagesByMagicNumber(int magicNumber){
+        return messageRepository.findAllByMagicNumber(magicNumber);
+    }
+
+    public void deleteMessagesByMagicNumber(int magicNumber){
+        messageRepository.deleteAllByMagicNumber(magicNumber);
+    }
+
     public MessageDto saveMessage(MessageDto messageDto){
-        UUID id = UUID.randomUUID();
         Message message = MessageMapper.INSTANCE.mapDtoToMessage(messageDto);
-        messageRepository.save(message, id);
-        return messageDto;
+        String uuid = UUID.randomUUID().toString();
+        message.setId(uuid);
+        messageRepository.save(message);
+        return MessageMapper.INSTANCE.mapMessageToDto(message);
     }
 }
