@@ -1,11 +1,14 @@
 package com.technicaltask.slmarta;
 
 import com.technicaltask.slmarta.message.*;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.testcontainers.containers.CassandraContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
+@Testcontainers
 public class MessageServiceTest {
+
+    @ClassRule
+    public static CassandraContainer cassandraContainer;
 
     @Mock
     private MessageRepository messageRepository;

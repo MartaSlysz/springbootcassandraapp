@@ -1,12 +1,15 @@
 package com.technicaltask.slmarta;
 
 import com.technicaltask.slmarta.message.*;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.CassandraContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MessageController.class)
+@Testcontainers
 public class MessageControllerTest {
 
     @Autowired
@@ -31,6 +35,9 @@ public class MessageControllerTest {
 
     @MockBean
     private MessageController messageController;
+
+    @ClassRule
+    public static CassandraContainer cassandraContainer;
 
     @Test
     public void shouldReturnMessagesByEmailGiven() throws Exception {
